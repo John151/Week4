@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Empty unordered list</title>
+</head>
+<body>
+
+    <p>Enter some text to add to the list</p>
+    <input id="new-text"/>
+    <button id="add-text">Add</button>
+    <button id="clear-text">Clear</button>
+    <!-- empty unordered list -->
+    <ul id="list-of-text"></ul>
+
+<script>
+
+    let textInput = document.querySelector('#new-text')
+    let addButton = document.querySelector('#add-text')
+    let textList = document.querySelector('#list-of-text')
+
+    document.addEventListener('keyup', function () {
+        // noinspection JSDeprecatedSymbols
+        if (event.keyCode == 13 ) {
+            addButton.click() //click the add button on 'Enter' key
+        }
+        // noinspection JSDeprecatedSymbols
+        //console.log(event.keyCode)
+    })
+
+    addButton.addEventListener('click', function(){
+        let numberListItems = document.querySelectorAll('#list-of-text li').length
+        //found solution on stack overflow: https://stackoverflow.com/questions/20040825/check-how-many-li-there-are-in-a-ul-with-javascript
+
+        if (numberListItems < 10) {
+            //read the text in input
+            let newText = textInput.value
+            if (newText.length == 0) { //validate, make sure something is being entered
+                return
+            }
+            else if (newText.length > 50) {
+                alert('Form does not accept input of more than 50 characters')
+                return
+            } else {
+                //console.log(newText)
+                //create new li element
+                let newListItem = document.createElement('li')
+                //li element text should be text from input
+                newListItem.innerHTML = newText
+                //add the new li element as a child of the ul element
+                textList.appendChild(newListItem)
+                //clear the text in the input
+                textInput.value = ''
+            }
+        }
+        else alert('List has too many items already')
+    })
+
+    let clearButton = document.querySelector('#clear-text')
+
+    clearButton.addEventListener('click', function() {
+        textList.innerHTML = ''
+    })
+
+
+</script>
+
+</body>
+</html>
